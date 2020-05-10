@@ -83,6 +83,52 @@ public class ListaDinamica<T> {
         }
         tamaño ++;
         return primero.getElemento();
+        
     }
 
+    public T addLast( T elemento){
+        Nodo <T> aux;
+        
+        if(isEmpty()){
+            addFirst(elemento);
+        }else{
+            aux=new Nodo<>(elemento,null);
+            ultimo.setSiguiente(aux);
+            ultimo=aux;
+        }
+        tamaño ++;
+        return ultimo.getElemento();
+        
+    }
+    public T add(T elemento, int index){
+        if(index == 0){
+            return addFirst(elemento);//Si eres el primero te añdes el primero
+        }else if(index == size()){
+            return addLast(elemento);
+        }else if(index < 0 || index >= size()){
+            return null;
+        }else{
+            Nodo<T> anterior = getNode(index - 1);
+            Nodo<T> actual=getNode(index);
+            Nodo<T> aux=new Nodo(elemento, actual);
+            anterior.setSiguiente(aux);
+            tamaño++;
+            return getNode(index).getElemento();
+        
+        }    
+    }
+    public String toString(){
+        String cadena="";
+        
+        if(isEmpty()){
+            cadena="Lista vacia";
+        }else{
+            Nodo<T> aux=primero;
+            while(aux!=null){
+                cadena += aux.toString();
+                aux=aux.getSiguiente();
+            }
+        }
+        return cadena;
+    }
 }
